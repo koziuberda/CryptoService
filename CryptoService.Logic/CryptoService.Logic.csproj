@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CryptoService.Data\CryptoService.Data.csproj" />
+      <ProjectReference Include="..\CryptoService.Integrations.CoinApi\CryptoService.Integrations.CoinApi.csproj" />
+    </ItemGroup>
+
+</Project>

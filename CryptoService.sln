@@ -2,6 +2,14 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoService.API", "CryptoService.API\CryptoService.API.csproj", "{888A3A55-63D2-4FA1-A76F-049409F956E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoService.Logic", "CryptoService.Logic\CryptoService.Logic.csproj", "{9DAD9A41-DD6B-411B-8610-81E155131F96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integrations", "Integrations", "{CA15EEC7-2B56-474D-928B-DFB5BB2408F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoService.Integrations.CoinApi", "CryptoService.Integrations.CoinApi\CryptoService.Integrations.CoinApi.csproj", "{851269AC-4FF1-4AB7-BD47-7CE93DF73955}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoService.Data", "CryptoService.Data\CryptoService.Data.csproj", "{273B63C8-20A9-4B24-BBCD-3C4DE521AF44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +20,20 @@ Global
 		{888A3A55-63D2-4FA1-A76F-049409F956E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{888A3A55-63D2-4FA1-A76F-049409F956E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{888A3A55-63D2-4FA1-A76F-049409F956E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DAD9A41-DD6B-411B-8610-81E155131F96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DAD9A41-DD6B-411B-8610-81E155131F96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DAD9A41-DD6B-411B-8610-81E155131F96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DAD9A41-DD6B-411B-8610-81E155131F96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{851269AC-4FF1-4AB7-BD47-7CE93DF73955}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{851269AC-4FF1-4AB7-BD47-7CE93DF73955}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{851269AC-4FF1-4AB7-BD47-7CE93DF73955}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{851269AC-4FF1-4AB7-BD47-7CE93DF73955}.Release|Any CPU.Build.0 = Release|Any CPU
+		{273B63C8-20A9-4B24-BBCD-3C4DE521AF44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{273B63C8-20A9-4B24-BBCD-3C4DE521AF44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{273B63C8-20A9-4B24-BBCD-3C4DE521AF44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{273B63C8-20A9-4B24-BBCD-3C4DE521AF44}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{851269AC-4FF1-4AB7-BD47-7CE93DF73955} = {CA15EEC7-2B56-474D-928B-DFB5BB2408F8}
 	EndGlobalSection
 EndGlobal
