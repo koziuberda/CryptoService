@@ -6,4 +6,11 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Ardalis.Specification" Version="8.0.0" />
+      <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.30" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.30" />
+    </ItemGroup>
+
 </Project>
