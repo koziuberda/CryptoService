@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\CryptoService.Core.Domain\CryptoService.Core.Domain.csproj" />
       <ProjectReference Include="..\CryptoService.Data\CryptoService.Data.csproj" />
       <ProjectReference Include="..\CryptoService.Integrations.CoinApi\CryptoService.Integrations.CoinApi.csproj" />
     </ItemGroup>

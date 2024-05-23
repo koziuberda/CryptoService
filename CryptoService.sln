@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoService.Integrations.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoService.Data", "CryptoService.Data\CryptoService.Data.csproj", "{273B63C8-20A9-4B24-BBCD-3C4DE521AF44}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B38D4716-C735-4F36-A211-2966797F5632}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoService.Core.Domain", "CryptoService.Core.Domain\CryptoService.Core.Domain.csproj", "{25A87C67-25CC-4601-823D-FA5DF566A394}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,8 +36,13 @@ Global
 		{273B63C8-20A9-4B24-BBCD-3C4DE521AF44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{273B63C8-20A9-4B24-BBCD-3C4DE521AF44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{273B63C8-20A9-4B24-BBCD-3C4DE521AF44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25A87C67-25CC-4601-823D-FA5DF566A394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25A87C67-25CC-4601-823D-FA5DF566A394}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25A87C67-25CC-4601-823D-FA5DF566A394}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25A87C67-25CC-4601-823D-FA5DF566A394}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{851269AC-4FF1-4AB7-BD47-7CE93DF73955} = {CA15EEC7-2B56-474D-928B-DFB5BB2408F8}
+		{25A87C67-25CC-4601-823D-FA5DF566A394} = {B38D4716-C735-4F36-A211-2966797F5632}
 	EndGlobalSection
 EndGlobal

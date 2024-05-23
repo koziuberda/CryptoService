@@ -1,3 +1,9 @@
+using CryptoService.Data.Database;
+using CryptoService.Logic.Mappers;
+using CryptoService.Logic.Services;
+using CryptoService.Logic.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +13,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var configuration = builder.Configuration;
+builder.Services.AddDbContext<CryptoDbContext>(options =>
+    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<ICryptoDataProvider, MockCryptoDataProvider>();
+
 var app = builder.Build();
+
+using (var serviceScope = app.Services.CreateScope())
+{
+    var dbContext = serviceScope.ServiceProvider.GetRequiredService<CryptoDbContext>();
+    dbContext.Database.Migrate();
+
+    await InitializeDatabase(dbContext, serviceScope.ServiceProvider.GetRequiredService<ICryptoDataProvider>());
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -23,3 +43,13 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+async Task InitializeDatabase(CryptoDbContext dbContext, ICryptoDataProvider cryptoDataProvider)
+{
+    if (!dbContext.CryptoCurrencies.Any())
+    {
+        var cryptocurrencies = await cryptoDataProvider.GetSupportedCurrenciesAsync();
+        dbContext.CryptoCurrencies.AddRange(CurrencyMapper.Map(cryptocurrencies));
+        await dbContext.SaveChangesAsync();
+    }
+}
