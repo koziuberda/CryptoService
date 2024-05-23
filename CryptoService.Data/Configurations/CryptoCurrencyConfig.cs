@@ -11,7 +11,7 @@ public class CryptoCurrencyConfig : IEntityTypeConfiguration<CryptoCurrencyDb>
         builder.HasKey(c => c.Id);
 
         builder.Property(c => c.Ticker)
-            .HasMaxLength(10)
+            .HasMaxLength(100)
             .IsRequired();
 
         builder.Property(c => c.Name)

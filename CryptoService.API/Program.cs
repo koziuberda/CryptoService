@@ -1,4 +1,6 @@
 using CryptoService.Data.Database;
+using CryptoService.Integrations.CoinApi.Services;
+using CryptoService.Integrations.CoinApi.Services.Interfaces;
 using CryptoService.Logic.Mappers;
 using CryptoService.Logic.Services;
 using CryptoService.Logic.Services.Interfaces;
@@ -17,7 +19,11 @@ var configuration = builder.Configuration;
 builder.Services.AddDbContext<CryptoDbContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<ICryptoDataProvider, MockCryptoDataProvider>();
+builder.Services.AddScoped<ICryptoDataProvider, CryptoDataProvider>();
+
+builder.Services.AddSingleton<ICoinApiService, CoinApiService>(x => 
+    new CoinApiService(configuration.GetSection("Integrations:CoinApiKey").Value)
+);
 
 var app = builder.Build();
 

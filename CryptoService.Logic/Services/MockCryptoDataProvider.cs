@@ -14,19 +14,16 @@ public class MockCryptoDataProvider : ICryptoDataProvider
     {
         new CryptoCurrency
         {
-            Id = Guid.NewGuid(),
             Name = "Bitcoin",
             Ticker = "BTC"
         },
         new CryptoCurrency
         {
-            Id = Guid.NewGuid(),
             Name = "Ethereum",
             Ticker = "ETH"
         },
         new CryptoCurrency
         {
-            Id = Guid.NewGuid(),
             Name = "Litecoin",
             Ticker = "LTC"
         }
