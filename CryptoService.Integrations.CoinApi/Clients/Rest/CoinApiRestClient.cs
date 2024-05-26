@@ -89,19 +89,9 @@ public class CoinApiRestClient
         return data;
     }
 
-    public Task<List<Asset>> Metadata_list_assetsAsync()
+    public Task<List<Asset>> Metadata_list_assetsAsync(string[] assetIds)
     {
-        return GetData<List<Asset>>(CoinApiEndpointUrls.Assets());
-    }
-
-    public Task<List<Symbol>> Metadata_list_symbolsAsync()
-    {
-        return GetData<List<Symbol>>(CoinApiEndpointUrls.Symbols());
-    }
-
-    public Task<List<Symbol>> Metadata_list_symbols_exchangeAsync(string exchangeId)
-    {
-        return GetData<List<Symbol>>(CoinApiEndpointUrls.Symbols(exchangeId));
+        return GetData<List<Asset>>(CoinApiEndpointUrls.Assets(assetIds));
     }
     
     public Task<List<Symbol>> Metadata_list_symbols_exchangesAsync(string[] exchangeIds)

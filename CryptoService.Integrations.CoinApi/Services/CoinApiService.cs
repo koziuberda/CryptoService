@@ -29,15 +29,14 @@ public class CoinApiService : ICoinApiService
         _webSocketClient.TradeEvent += OnTradeEvent;
     }
     
-    public async Task<CoinApiCurrenciesResponse> GetSupportedCryptocurrencies()
+    public async Task<CoinApiAssetsResponse> GetAssets(string[] assetIds)
     {
-        List<Asset> assets = await _restClient.Metadata_list_assetsAsync();
-        var currencies = assets
-            .Where(a => a is {type_is_crypto: true, price_usd: > 0})
+        List<Asset> assets = await _restClient.Metadata_list_assetsAsync(assetIds);
+        var assetDtos = assets
             .Select(CoinApiMapper.Map)
             .ToArray();
         
-        return new CoinApiCurrenciesResponse(currencies);
+        return new CoinApiAssetsResponse(assetDtos);
     }
 
     public async Task<CoinApiSymbolsResponse> GetSymbols(string[] exchangeIds)
@@ -45,12 +44,11 @@ public class CoinApiService : ICoinApiService
         List<Symbol> symbols = await _restClient.Metadata_list_symbols_exchangesAsync(exchangeIds);
         var symbolDtos = symbols.Select(CoinApiMapper.Map).ToArray();
         return new CoinApiSymbolsResponse(symbolDtos);
-        // todo get symbols, then extract AssetBaseId
     }
 
-    public void SubscribeToPriceUpdates(string[] assetIds)
+    public void SubscribeToPriceUpdates(string[] symbolIds)
     {
-        var subscriptionMsg = GetTickerSubscriptionMessage(assetIds);
+        var subscriptionMsg = GetTickerSubscriptionMessage(symbolIds);
         _webSocketClient.SendHelloMessage(subscriptionMsg);
     }
     
@@ -66,14 +64,18 @@ public class CoinApiService : ICoinApiService
         ErrorCallback?.Invoke(ex);
     }
 
-    private Hello GetTickerSubscriptionMessage(string[] assetIds) 
+    private Hello GetTickerSubscriptionMessage(string[] symbolIds) 
         => new ()
         {
             type = "subscribe",
             apikey = Guid.Parse(_apiKey),
             heartbeat = false,
             subscribe_data_type = new[] { "trade" },
-            subscribe_filter_asset_id = assetIds,
-            subscribe_filter_exchange_id = new []{ "BYBIT", "BINANCE", "COINBASE" }
+            subscribe_filter_symbol_id = GetExactSymbolIds(symbolIds)
         };
+
+    private string[] GetExactSymbolIds(string[] symbolIds)
+    {
+        return symbolIds.Select(x => string.Concat(x, "$")).ToArray();
+    }
 }

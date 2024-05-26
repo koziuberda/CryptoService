@@ -1,6 +1,6 @@
 ﻿namespace CryptoService.Integrations.CoinApi.Models;
 
-public class CoinApiCurrency
+public class CoinApiAsset
 {
     public string AssetId { get; set; } = string.Empty;
 

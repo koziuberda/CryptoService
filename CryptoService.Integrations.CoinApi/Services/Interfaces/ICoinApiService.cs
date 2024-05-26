@@ -5,9 +5,11 @@ namespace CryptoService.Integrations.CoinApi.Services.Interfaces;
 
 public interface ICoinApiService
 {
-    Task<CoinApiCurrenciesResponse> GetSupportedCryptocurrencies();
+    Task<CoinApiAssetsResponse> GetAssets(string[] assetIds);
 
-    void SubscribeToPriceUpdates(string[] assetIds);
+    Task<CoinApiSymbolsResponse> GetSymbols(string[] exchangeIds);
+
+    void SubscribeToPriceUpdates(string[] symbolIds);
     
     Action<CoinApiPriceUpdate>? PriceChangeCallback { get; set; }
     

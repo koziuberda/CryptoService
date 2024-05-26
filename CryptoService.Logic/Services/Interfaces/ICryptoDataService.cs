@@ -2,7 +2,7 @@
 
 namespace CryptoService.Logic.Services.Interfaces;
 
-public interface ICryptoDataProvider
+public interface ICryptoDataService
 {
     Task<CryptoCurrency[]> GetSupportedCurrenciesAsync();
 }

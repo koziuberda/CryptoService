@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CryptoService.Data.Repositories;
 
-public class CryptoCurrencyRepository : RepositoryBase<AssetDb>, ICryptoCurrencyRepository
+public class AssetRepository : RepositoryBase<AssetDb>, IAssetRepository
 {
-    public CryptoCurrencyRepository(CryptoDbContext dbContext) : base(dbContext)
+    public AssetRepository(CryptoDbContext dbContext) : base(dbContext)
     {
     }
 }

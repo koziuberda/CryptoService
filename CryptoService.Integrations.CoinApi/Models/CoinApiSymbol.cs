@@ -7,4 +7,7 @@ public class CoinApiSymbol
     public string SymbolType { get; set; } = string.Empty;
     public string AssetIdBase { get; set; } = string.Empty;
     public string AssetIdQuote { get; set; } = string.Empty;
+    public DateTime Timestamp { get; set; } = DateTime.Now;
+    
+    public decimal? Price { get; set; }
 }

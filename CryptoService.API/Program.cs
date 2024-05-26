@@ -20,9 +20,9 @@ var configuration = builder.Configuration;
 builder.Services.AddDbContext<CryptoDbContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<ICryptoCurrencyRepository, CryptoCurrencyRepository>();
-builder.Services.AddScoped<IPriceRepository, PriceRepository>();
-builder.Services.AddScoped<ICryptoDataProvider, CryptoDataProvider>();
+builder.Services.AddScoped<IAssetRepository, AssetRepository>();
+builder.Services.AddScoped<ISymbolRepository, SymbolRepository>();
+builder.Services.AddScoped<ICryptoDataService, CryptoDataService>();
 builder.Services.AddHostedService<UpdatePriceHostedService>();
 
 builder.Services.AddSingleton<ICoinApiService, CoinApiService>(x => 

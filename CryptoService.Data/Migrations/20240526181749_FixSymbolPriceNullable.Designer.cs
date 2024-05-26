@@ -4,6 +4,7 @@ using CryptoService.Data.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CryptoService.Data.Migrations
 {
     [DbContext(typeof(CryptoDbContext))]
-    partial class CryptoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240526181749_FixSymbolPriceNullable")]
+    partial class FixSymbolPriceNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,7 +55,7 @@ namespace CryptoService.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(12,6)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("SymbolId");
 

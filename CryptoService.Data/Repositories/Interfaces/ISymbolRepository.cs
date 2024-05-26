@@ -2,6 +2,6 @@
 
 namespace CryptoService.Data.Repositories.Interfaces;
 
-public interface ICryptoCurrencyRepository : IRepository<AssetDb>
+public interface ISymbolRepository : IRepository<SymbolDb>
 {
 }

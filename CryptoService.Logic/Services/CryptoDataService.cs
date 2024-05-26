@@ -6,14 +6,14 @@ using Microsoft.Extensions.Logging;
 
 namespace CryptoService.Logic.Services;
 
-public class CryptoDataProvider : ICryptoDataProvider
+public class CryptoDataService : ICryptoDataService
 {
-    private readonly ICryptoCurrencyRepository _currencyRepository;
-    private readonly ILogger<CryptoDataProvider> _logger;
+    private readonly IAssetRepository _currencyRepository;
+    private readonly ILogger<CryptoDataService> _logger;
     
-    public CryptoDataProvider(
-        ICryptoCurrencyRepository currencyRepository, 
-        ILogger<CryptoDataProvider> logger)
+    public CryptoDataService(
+        IAssetRepository currencyRepository, 
+        ILogger<CryptoDataService> logger)
     {
         _currencyRepository = currencyRepository;
         _logger = logger;
@@ -22,6 +22,6 @@ public class CryptoDataProvider : ICryptoDataProvider
     public async Task<CryptoCurrency[]> GetSupportedCurrenciesAsync()
     {
         var currencies = await _currencyRepository.ListAsync();
-        return currencies.Select(CurrencyMapper.Map).ToArray();
+        return currencies.Select(CryptoMapper.Map).ToArray();
     }
 }

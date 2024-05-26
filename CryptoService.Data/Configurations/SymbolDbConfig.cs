@@ -15,8 +15,7 @@ public class SymbolDbConfig : IEntityTypeConfiguration<SymbolDb>
             .HasMaxLength(100);
 
         builder.Property(p => p.Price)
-            .HasColumnType("decimal(18,2)")
-            .IsRequired();
+            .HasColumnType("decimal(12,6)");
 
         builder.Property(p => p.LastUpdated)
             .IsRequired();

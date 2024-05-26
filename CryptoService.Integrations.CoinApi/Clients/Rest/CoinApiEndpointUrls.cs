@@ -2,13 +2,11 @@
 
 public static class CoinApiEndpointUrls
 {
-    public static string Assets() => "/v1/assets";
-    public static string Symbols() => "/v1/symbols";
-    public static string Symbols(string exchangeId) => $"/v1/symbols/{exchangeId}";
+    public static string Assets(string[] assetIds) => $"/v1/assets/{string.Join(",", assetIds)}";
     
     public static string Symbols(string[] exchangeIds)
     {
         string joinedIds = string.Join(",", exchangeIds);
-        return $"/v1/symbols/{joinedIds}";
+        return $"/v1/symbols/?filter_exchange_id={joinedIds}";
     }
 }
