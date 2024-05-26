@@ -1,4 +1,7 @@
 ﻿using CoinAPI.WebSocket.V1;
+using CoinAPI.WebSocket.V1.DataModels;
+using CryptoService.Integrations.CoinApi.Clients.Rest;
+using CryptoService.Integrations.CoinApi.Clients.Rest.DataModels;
 using CryptoService.Integrations.CoinApi.Mappers;
 using CryptoService.Integrations.CoinApi.Responses;
 using CryptoService.Integrations.CoinApi.Services.Interfaces;

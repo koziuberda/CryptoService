@@ -1,4 +1,4 @@
-﻿using CoinAPI.REST.V1;
+﻿using CryptoService.Integrations.CoinApi.Clients.Rest.DataModels;
 using CryptoService.Integrations.CoinApi.Models;
 using CryptoService.Integrations.CoinApi.Responses;
 using Trade = CoinAPI.WebSocket.V1.DataModels.Trade;
