@@ -13,8 +13,7 @@ namespace CryptoService.Data.Migrations
                 name: "CryptoCurrencies",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Ticker = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
@@ -26,14 +25,14 @@ namespace CryptoService.Data.Migrations
                 name: "PriceInfos",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SymbolId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CurrencyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CurrencyId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PriceInfos", x => x.Id);
+                    table.PrimaryKey("PK_PriceInfos", x => x.SymbolId);
                     table.ForeignKey(
                         name: "FK_PriceInfos_CryptoCurrencies_CurrencyId",
                         column: x => x.CurrencyId,
@@ -45,8 +44,7 @@ namespace CryptoService.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_PriceInfos_CurrencyId",
                 table: "PriceInfos",
-                column: "CurrencyId",
-                unique: true);
+                column: "CurrencyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

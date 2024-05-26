@@ -24,16 +24,11 @@ namespace CryptoService.Data.Migrations
 
             modelBuilder.Entity("CryptoService.Data.Entities.CryptoCurrencyDb", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<string>("Id")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Ticker")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -45,12 +40,14 @@ namespace CryptoService.Data.Migrations
 
             modelBuilder.Entity("CryptoService.Data.Entities.PriceInfoDb", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("SymbolId")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid>("CurrencyId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("CurrencyId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
@@ -58,28 +55,27 @@ namespace CryptoService.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("Id");
+                    b.HasKey("SymbolId");
 
-                    b.HasIndex("CurrencyId")
-                        .IsUnique();
+                    b.HasIndex("CurrencyId");
 
                     b.ToTable("PriceInfos", (string)null);
                 });
 
             modelBuilder.Entity("CryptoService.Data.Entities.PriceInfoDb", b =>
                 {
-                    b.HasOne("CryptoService.Data.Entities.CryptoCurrencyDb", "CryptoCurrency")
-                        .WithOne("PriceInfo")
-                        .HasForeignKey("CryptoService.Data.Entities.PriceInfoDb", "CurrencyId")
+                    b.HasOne("CryptoService.Data.Entities.CryptoCurrencyDb", "Currency")
+                        .WithMany("Prices")
+                        .HasForeignKey("CurrencyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CryptoCurrency");
+                    b.Navigation("Currency");
                 });
 
             modelBuilder.Entity("CryptoService.Data.Entities.CryptoCurrencyDb", b =>
                 {
-                    b.Navigation("PriceInfo");
+                    b.Navigation("Prices");
                 });
 #pragma warning restore 612, 618
         }

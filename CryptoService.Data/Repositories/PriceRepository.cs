@@ -1,13 +1,14 @@
 ﻿using Ardalis.Specification.EntityFrameworkCore;
+using CryptoService.Data.Database;
 using CryptoService.Data.Entities;
 using CryptoService.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CryptoService.Data.Repositories;
 
-public class PriceRepository : RepositoryBase<PriceInfoDb>, IRepository<PriceInfoDb>
+public class PriceRepository : RepositoryBase<PriceInfoDb>, IPriceRepository
 {
-    public PriceRepository(DbContext dbContext) : base(dbContext)
+    public PriceRepository(CryptoDbContext dbContext) : base(dbContext)
     {
     }
 }

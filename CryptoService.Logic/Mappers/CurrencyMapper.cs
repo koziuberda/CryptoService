@@ -1,26 +1,34 @@
 ﻿using CryptoService.Core.Domain.Models;
 using CryptoService.Data.Entities;
 using CryptoService.Integrations.CoinApi.Models;
+using CryptoService.Integrations.CoinApi.Responses;
 
 namespace CryptoService.Logic.Mappers;
 
 public static class CurrencyMapper
 {
-    public static CryptoCurrencyDb Map(CryptoCurrency from) => new () 
-        {
-            Id = Guid.NewGuid(),
-            Name = from.Name,
-            Ticker = from.Ticker
-        };
-    
-
-    public static CryptoCurrencyDb[] Map(CryptoCurrency[] from) => from.Select(Map).ToArray();
-
-    public static CryptoCurrency Map(CoinApiCurrency from) => new()
+    public static CryptoCurrency Map(CryptoCurrencyDb from) => new()
     {
-        Name = from.Name,
-        Ticker = from.AssetId
+        Ticker = from.Id,
+        Name = from.Name
     };
 
-    public static CryptoCurrency[] Map(CoinApiCurrency[] from) => from.Select(Map).ToArray();
+    public static CryptoCurrencyDb Map(CoinApiCurrency from) => new()
+    {
+        Id = from.AssetId,
+        Name = from.Name
+    };
+
+    public static PriceInfoDb Map(PriceUpdate from)
+    {
+        // "{exchange_id}_{SPOT_or_PERP}_{asset_id_base}_{asset_id_quote}"
+        var symbolParts = from.SymbolId.Split("_");
+        return new PriceInfoDb
+        {
+            SymbolId = from.SymbolId,
+            CurrencyId = symbolParts[2],
+            Price = from.Rate,
+            LastUpdated = from.Updated
+        };
+    }
 }

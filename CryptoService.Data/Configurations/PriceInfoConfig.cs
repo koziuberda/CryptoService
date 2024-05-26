@@ -8,7 +8,11 @@ public class PriceInfoConfig : IEntityTypeConfiguration<PriceInfoDb>
 {
     public void Configure(EntityTypeBuilder<PriceInfoDb> builder)
     {
-        builder.HasKey(p => p.Id);
+        builder.HasKey(p => p.SymbolId);
+        
+        builder.Property(p => p.SymbolId)
+            .IsRequired()
+            .HasMaxLength(100);
 
         builder.Property(p => p.Price)
             .HasColumnType("decimal(18,2)")
@@ -18,12 +22,8 @@ public class PriceInfoConfig : IEntityTypeConfiguration<PriceInfoDb>
             .IsRequired();
         
         builder.Property(p => p.CurrencyId)
-            .IsRequired();
-        
-        builder.HasOne(p => p.CryptoCurrency)
-            .WithOne(c => c.PriceInfo)
-            .HasForeignKey<PriceInfoDb>(p => p.CurrencyId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .IsRequired()
+            .HasMaxLength(100);;
 
         builder.ToTable("PriceInfos");
     }

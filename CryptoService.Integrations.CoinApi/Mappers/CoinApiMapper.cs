@@ -1,5 +1,7 @@
 ﻿using CoinAPI.REST.V1;
 using CryptoService.Integrations.CoinApi.Models;
+using CryptoService.Integrations.CoinApi.Responses;
+using Trade = CoinAPI.WebSocket.V1.DataModels.Trade;
 
 namespace CryptoService.Integrations.CoinApi.Mappers;
 
@@ -9,5 +11,12 @@ public static class CoinApiMapper
     {
         AssetId = from.asset_id,
         Name = from.name
+    };
+    
+    public static PriceUpdate Map(Trade from) => new ()
+    {
+        SymbolId = from.symbol_id,
+        Rate = from.price,
+        Updated = from.time_exchange
     };
 }

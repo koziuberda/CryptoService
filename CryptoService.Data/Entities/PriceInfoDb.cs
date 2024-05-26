@@ -2,13 +2,13 @@
 
 public class PriceInfoDb
 {
-    public Guid Id { get; set; }
+    public string SymbolId { get; set; }
     
     public decimal Price { get; set; }
     
     public DateTime LastUpdated { get; set; }
     
-    public Guid CurrencyId { get; set; }
+    public string CurrencyId { get; set; }
     
-    public CryptoCurrencyDb CryptoCurrency { get; set; } = null!;
+    public CryptoCurrencyDb Currency { get; set; } = null!;
 }
