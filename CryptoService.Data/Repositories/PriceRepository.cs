@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CryptoService.Data.Repositories;
 
-public class PriceRepository : RepositoryBase<PriceInfoDb>, IPriceRepository
+public class PriceRepository : RepositoryBase<SymbolDb>, IPriceRepository
 {
     public PriceRepository(CryptoDbContext dbContext) : base(dbContext)
     {

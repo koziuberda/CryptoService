@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CryptoService.Data.Configurations;
 
-public class CryptoCurrencyConfig : IEntityTypeConfiguration<CryptoCurrencyDb>
+public class AssetDbConfig : IEntityTypeConfiguration<AssetDb>
 {
-    public void Configure(EntityTypeBuilder<CryptoCurrencyDb> builder)
+    public void Configure(EntityTypeBuilder<AssetDb> builder)
     {
         builder.HasKey(c => c.Id);
         
@@ -18,11 +18,11 @@ public class CryptoCurrencyConfig : IEntityTypeConfiguration<CryptoCurrencyDb>
             .HasMaxLength(100)
             .IsRequired();
         
-        builder.HasMany(c => c.Prices)
-            .WithOne(p => p.Currency)
-            .HasForeignKey(p => p.CurrencyId)
+        builder.HasMany(c => c.Symbols)
+            .WithOne(p => p.Asset)
+            .HasForeignKey(p => p.AssetId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.ToTable("CryptoCurrencies");
+        builder.ToTable("Assets");
     }
 }

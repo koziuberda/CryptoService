@@ -13,10 +13,19 @@ public static class CoinApiMapper
         Name = from.name
     };
     
-    public static PriceUpdate Map(Trade from) => new ()
+    public static CoinApiPriceUpdate Map(Trade from) => new ()
     {
         SymbolId = from.symbol_id,
         Rate = from.price,
         Updated = from.time_exchange
+    };
+
+    public static CoinApiSymbol Map(Symbol from) => new()
+    {
+        SymbolId = from.symbol_id,
+        SymbolType = from.symbol_type,
+        ExchangeId = from.exchange_id,
+        AssetIdBase = from.asset_id_base,
+        AssetIdQuote = from.asset_id_quote
     };
 }

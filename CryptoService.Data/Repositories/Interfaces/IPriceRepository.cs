@@ -2,6 +2,6 @@
 
 namespace CryptoService.Data.Repositories.Interfaces;
 
-public interface IPriceRepository : IRepository<PriceInfoDb>
+public interface IPriceRepository : IRepository<SymbolDb>
 {
 }

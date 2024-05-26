@@ -7,26 +7,26 @@ namespace CryptoService.Logic.Mappers;
 
 public static class CurrencyMapper
 {
-    public static CryptoCurrency Map(CryptoCurrencyDb from) => new()
+    public static CryptoCurrency Map(AssetDb from) => new()
     {
         Ticker = from.Id,
         Name = from.Name
     };
 
-    public static CryptoCurrencyDb Map(CoinApiCurrency from) => new()
+    public static AssetDb Map(CoinApiCurrency from) => new()
     {
         Id = from.AssetId,
         Name = from.Name
     };
 
-    public static PriceInfoDb Map(PriceUpdate from)
+    public static SymbolDb Map(CoinApiPriceUpdate from)
     {
         // "{exchange_id}_{SPOT_or_PERP}_{asset_id_base}_{asset_id_quote}"
         var symbolParts = from.SymbolId.Split("_");
-        return new PriceInfoDb
+        return new SymbolDb
         {
             SymbolId = from.SymbolId,
-            CurrencyId = symbolParts[2],
+            AssetId = symbolParts[2],
             Price = from.Rate,
             LastUpdated = from.Updated
         };

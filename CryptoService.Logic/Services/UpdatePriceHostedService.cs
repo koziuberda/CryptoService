@@ -2,7 +2,7 @@
 using System.Text.Json;
 using CryptoService.Data.Entities;
 using CryptoService.Data.Repositories.Interfaces;
-using CryptoService.Integrations.CoinApi.Responses;
+using CryptoService.Integrations.CoinApi.Models;
 using CryptoService.Integrations.CoinApi.Services.Interfaces;
 using CryptoService.Logic.Mappers;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +18,7 @@ public class UpdatePriceHostedService : BackgroundService
     private readonly ILogger<UpdatePriceHostedService> _logger;
     
     private readonly TimeSpan _updateInterval = TimeSpan.FromSeconds(3);
-    private readonly ConcurrentDictionary<string, PriceUpdate> _priceUpdatesDict = new();
+    private readonly ConcurrentDictionary<string, CoinApiPriceUpdate> _priceUpdatesDict = new();
     private Timer? _timer;
     
     public UpdatePriceHostedService(
@@ -47,7 +47,7 @@ public class UpdatePriceHostedService : BackgroundService
         await base.StopAsync(stoppingToken);
     }
     
-    private async Task<List<CryptoCurrencyDb>> InitializeDb(CancellationToken stoppingToken)
+    private async Task<List<AssetDb>> InitializeDb(CancellationToken stoppingToken)
     {
         _logger.LogInformation("DB initialization started");
         using var scope = _scopeFactory.CreateScope();
@@ -105,9 +105,9 @@ public class UpdatePriceHostedService : BackgroundService
     
     private async Task HandlePriceUpdate(
         ICryptoCurrencyRepository currencyRepository, 
-        PriceUpdate priceUpdate)
+        CoinApiPriceUpdate coinApiPriceUpdate)
     {
-        var dbEntity = CurrencyMapper.Map(priceUpdate);
+        var dbEntity = CurrencyMapper.Map(coinApiPriceUpdate);
         var jsonStr = JsonSerializer.Serialize(dbEntity);
         _logger.LogInformation(jsonStr);
         return;

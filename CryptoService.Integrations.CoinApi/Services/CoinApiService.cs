@@ -3,6 +3,7 @@ using CoinAPI.WebSocket.V1.DataModels;
 using CryptoService.Integrations.CoinApi.Clients.Rest;
 using CryptoService.Integrations.CoinApi.Clients.Rest.DataModels;
 using CryptoService.Integrations.CoinApi.Mappers;
+using CryptoService.Integrations.CoinApi.Models;
 using CryptoService.Integrations.CoinApi.Responses;
 using CryptoService.Integrations.CoinApi.Services.Interfaces;
 using Trade = CoinAPI.WebSocket.V1.DataModels.Trade;
@@ -11,7 +12,7 @@ namespace CryptoService.Integrations.CoinApi.Services;
 
 public class CoinApiService : ICoinApiService
 {
-    public Action<PriceUpdate>? PriceChangeCallback { get; set; }
+    public Action<CoinApiPriceUpdate>? PriceChangeCallback { get; set; }
     public Action<Exception>? ErrorCallback { get; set; }
     
     private readonly string _apiKey;
@@ -37,6 +38,14 @@ public class CoinApiService : ICoinApiService
             .ToArray();
         
         return new CoinApiCurrenciesResponse(currencies);
+    }
+
+    public async Task<CoinApiSymbolsResponse> GetSymbols(string[] exchangeIds)
+    {
+        List<Symbol> symbols = await _restClient.Metadata_list_symbols_exchangesAsync(exchangeIds);
+        var symbolDtos = symbols.Select(CoinApiMapper.Map).ToArray();
+        return new CoinApiSymbolsResponse(symbolDtos);
+        // todo get symbols, then extract AssetBaseId
     }
 
     public void SubscribeToPriceUpdates(string[] assetIds)

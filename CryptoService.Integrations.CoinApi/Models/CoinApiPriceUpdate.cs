@@ -1,6 +1,6 @@
-﻿namespace CryptoService.Integrations.CoinApi.Responses;
+﻿namespace CryptoService.Integrations.CoinApi.Models;
 
-public class PriceUpdate
+public class CoinApiPriceUpdate
 {
     // public string AssetIdBase { get; set; } = string.Empty;
     // public string AssetIdQuote { get; set; } = string.Empty;

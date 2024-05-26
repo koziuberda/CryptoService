@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CryptoService.Data.Configurations;
 
-public class PriceInfoConfig : IEntityTypeConfiguration<PriceInfoDb>
+public class SymbolDbConfig : IEntityTypeConfiguration<SymbolDb>
 {
-    public void Configure(EntityTypeBuilder<PriceInfoDb> builder)
+    public void Configure(EntityTypeBuilder<SymbolDb> builder)
     {
         builder.HasKey(p => p.SymbolId);
         
@@ -21,10 +21,10 @@ public class PriceInfoConfig : IEntityTypeConfiguration<PriceInfoDb>
         builder.Property(p => p.LastUpdated)
             .IsRequired();
         
-        builder.Property(p => p.CurrencyId)
+        builder.Property(p => p.AssetId)
             .IsRequired()
             .HasMaxLength(100);;
 
-        builder.ToTable("PriceInfos");
+        builder.ToTable("Symbols");
     }
 }
