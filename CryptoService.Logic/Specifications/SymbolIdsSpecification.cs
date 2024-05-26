@@ -3,7 +3,7 @@ using CryptoService.Data.Entities;
 
 namespace CryptoService.Logic.Specifications;
 
-public class SymbolIdsSpecification : Specification<SymbolDb, string>
+public sealed class SymbolIdsSpecification : Specification<SymbolDb, string>
 {
     public SymbolIdsSpecification()
     {

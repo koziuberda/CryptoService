@@ -4,17 +4,18 @@ using CryptoService.Data.Repositories.Interfaces;
 using CryptoService.Integrations.CoinApi.Models;
 using CryptoService.Integrations.CoinApi.Services.Interfaces;
 using CryptoService.Logic.Mappers;
+using CryptoService.Logic.Settings;
 using CryptoService.Logic.Specifications;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace CryptoService.Logic.Services;
 
 public class UpdatePriceHostedService : BackgroundService
 {
-    private static readonly string[] ExchangeIds = {"BINANCE" , "BYBIT", "COINBASE"};
-    private static readonly string[] AssetQuoteIds = {"USD", "USDT"};
+    private readonly PriceServiceSettings _settings;
 
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly ICoinApiService _coinApiService;
@@ -28,20 +29,24 @@ public class UpdatePriceHostedService : BackgroundService
     public UpdatePriceHostedService(
         ICoinApiService coinApiService, 
         ILogger<UpdatePriceHostedService> logger, 
-        IServiceScopeFactory scopeFactory)
+        IServiceScopeFactory scopeFactory, 
+        IOptions<PriceServiceSettings> settings)
     {
         _coinApiService = coinApiService;
         _logger = logger;
         _scopeFactory = scopeFactory;
+        _settings = settings.Value;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _logger.LogInformation("{serviceName} has started.", nameof(UpdatePriceHostedService));
         var symbolIds = await InitializeDb(stoppingToken);
-        await SubscribeToPriceUpdates(symbolIds.ToArray());
-
-        await Task.Delay(Timeout.Infinite, stoppingToken);
+        if (_settings.EnableUpdates)
+        {
+            await SubscribeToPriceUpdates(symbolIds.ToArray());
+            await Task.Delay(Timeout.Infinite, stoppingToken);
+        }
     }
     
     public override async Task StopAsync(CancellationToken stoppingToken)
@@ -62,7 +67,7 @@ public class UpdatePriceHostedService : BackgroundService
         {
             _logger.LogInformation("Filling DB with supported currencies");
             
-            var symbols = await GetSymbols(ExchangeIds);
+            var symbols = await GetSymbols(_settings.ExchangeIds);
             symbolIds = symbols.Select(x => x.SymbolId).ToList();
             var assetIds = symbols.Select(x => x.AssetId).ToArray();
             var assets = await GetAssets(assetIds);
@@ -85,7 +90,9 @@ public class UpdatePriceHostedService : BackgroundService
     {
         var symbolsResponse = await _coinApiService.GetSymbols(exchangeIds);
         var symbols = symbolsResponse.Symbols
-            .Where(x => AssetQuoteIds.Contains(x.AssetIdQuote) && x.Price > 0)
+            .Where(x => _settings.AssetQuoteIds.Contains(x.AssetIdQuote)
+                        && x.Price > 0
+                        && _settings.Types.Contains(x.SymbolType))
             .Select(CryptoMapper.Map)
             .ToList();
         return symbols;

@@ -5,6 +5,7 @@ using CryptoService.Integrations.CoinApi.Services;
 using CryptoService.Integrations.CoinApi.Services.Interfaces;
 using CryptoService.Logic.Services;
 using CryptoService.Logic.Services.Interfaces;
+using CryptoService.Logic.Settings;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,8 @@ builder.Services.AddDbContext<CryptoDbContext>(options =>
 builder.Services.AddScoped<IAssetRepository, AssetRepository>();
 builder.Services.AddScoped<ISymbolRepository, SymbolRepository>();
 builder.Services.AddScoped<ICryptoDataService, CryptoDataService>();
+
+builder.Services.Configure<PriceServiceSettings>(configuration.GetSection("PriceServiceSettings"));
 builder.Services.AddHostedService<UpdatePriceHostedService>();
 
 builder.Services.AddSingleton<ICoinApiService, CoinApiService>(x => 

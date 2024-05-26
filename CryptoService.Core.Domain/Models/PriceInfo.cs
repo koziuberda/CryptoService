@@ -2,11 +2,14 @@
 
 public class PriceInfo
 {
-    public Guid Id { get; set; }
+    public string AssetId { get; set; } = string.Empty;
+    public string AssetQuoteId { get; set; } = string.Empty;
     
-    public decimal Price { get; set; }
+    public string ExchangeId { get; set; } = string.Empty;
+
+    public string Type { get; set; } = string.Empty;
+    
+    public decimal? Price { get; set; }
     
     public DateTime LastUpdated { get; set; }
-    
-    public Guid CurrencyId { get; set; }
 }
