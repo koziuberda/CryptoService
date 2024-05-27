@@ -2,8 +2,10 @@
 
 public class PriceServiceSettings
 {
-    public string[] ExchangeIds = {"BINANCE" , "BYBIT", "COINBASE"};
-    public string[] AssetQuoteIds = {"USD", "USDT"};
-    public string[] Types = {"SPOT", "PERPETUAL"};
-    public bool EnableUpdates = false;
+    public const string SectionName = "PriceServiceSettings";
+    
+    public string[] ExchangeIds { get; set; }
+    public string[] AssetQuoteIds { get; set; }
+    public string[] Types { get; set; }
+    public bool EnableUpdates { get; set; }
 }

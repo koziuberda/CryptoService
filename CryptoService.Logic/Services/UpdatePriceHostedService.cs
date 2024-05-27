@@ -44,8 +44,13 @@ public class UpdatePriceHostedService : BackgroundService
         var symbolIds = await InitializeDb(stoppingToken);
         if (_settings.EnableUpdates)
         {
+            _logger.LogInformation("Updates enabled. Start processing");
             await SubscribeToPriceUpdates(symbolIds.ToArray());
             await Task.Delay(Timeout.Infinite, stoppingToken);
+        }
+        else
+        {
+            _logger.LogInformation("Updates are disabled. Prices will not be updated.");
         }
     }
     

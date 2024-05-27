@@ -1,4 +1,5 @@
-﻿using CryptoService.Integrations.CoinApi.Clients.Rest.DataModels;
+﻿using CoinAPI.WebSocket.V1.DataModels;
+using CryptoService.Integrations.CoinApi.Clients.Rest.DataModels;
 using CryptoService.Integrations.CoinApi.Models;
 using Trade = CoinAPI.WebSocket.V1.DataModels.Trade;
 
@@ -12,11 +13,11 @@ public static class CoinApiMapper
         Name = from.name
     };
     
-    public static CoinApiPriceUpdate Map(Trade from) => new ()
+    public static CoinApiPriceUpdate Map(OHLCV from) => new ()
     {
         SymbolId = from.symbol_id,
-        Rate = from.price,
-        Updated = from.time_exchange
+        Rate = from.price_close!.Value,
+        Updated = from.time_close!.Value
     };
 
     public static CoinApiSymbol Map(Symbol from) => new()

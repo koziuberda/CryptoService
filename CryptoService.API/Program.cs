@@ -25,7 +25,7 @@ builder.Services.AddScoped<IAssetRepository, AssetRepository>();
 builder.Services.AddScoped<ISymbolRepository, SymbolRepository>();
 builder.Services.AddScoped<ICryptoDataService, CryptoDataService>();
 
-builder.Services.Configure<PriceServiceSettings>(configuration.GetSection("PriceServiceSettings"));
+builder.Services.Configure<PriceServiceSettings>(configuration.GetSection(PriceServiceSettings.SectionName));
 builder.Services.AddHostedService<UpdatePriceHostedService>();
 
 builder.Services.AddSingleton<ICoinApiService, CoinApiService>(x => 
