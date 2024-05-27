@@ -27,3 +27,4 @@ To prevent system overload from processing tasks, we use `SemaphoreSlim`. The se
     ```
 
 These commands will build and start the application using Docker.
+Once the application is ready, you can access the API documentation via Swagger at [http://localhost:8000/swagger/index.html](http://localhost:8000/swagger/index.html).
